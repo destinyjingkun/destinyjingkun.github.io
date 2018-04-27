@@ -115,12 +115,13 @@
 
     <div id="article-banner">
   <h2>我自己常用的Vim操作,持续更新!</h2>
-  <p class="post-date">2018-02-02</p>
-  <!--<p class="post-date"></p>-->
+  <p class="post-date">2018-02-02 17:32:4</p>
     
-  <p class="post-date">
-      <a class="post-date-link" href="/categories/Vim/">Vim</a>
-  </p>
+    
+  <a href="/tags#Vim" >
+    <span class="tag-code">Vim</span>
+  </a>
+
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -198,6 +199,13 @@
     
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/article/设计模式-PHP版/">
+        <span class="nav-arrow">← </span>
+        
+          设计模式-PHP版
+        
+      </a>
     
     
       <a class="nav-right" href="/article/Vim-YouCompleteMe补全配置/">
@@ -384,8 +392,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
-      hljs.configure({tabReplace: '  '})
-      hljs.initHighlighting();
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

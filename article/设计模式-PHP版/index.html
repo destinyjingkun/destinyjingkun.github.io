@@ -115,12 +115,17 @@
 
     <div id="article-banner">
   <h2>设计模式-PHP版</h2>
-  <p class="post-date">2018-04-26</p>
-  <!--<p class="post-date"></p>-->
+  <p class="post-date">2017-11-26 18:1:59</p>
     
-  <p class="post-date">
-      <a class="post-date-link" href="/categories/PHP/">PHP</a>
-  </p>
+    
+  <a href="/tags#设计模式" >
+    <span class="tag-code">设计模式</span>
+  </a>
+
+  <a href="/tags#PHP" >
+    <span class="tag-code">PHP</span>
+  </a>
+
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -185,13 +190,20 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/article/Google资深工程师深度讲解Go语言/">
+      <a class="nav-left" href="/article/回到初衷-一个日本创意鬼才的工作艺术/">
         <span class="nav-arrow">← </span>
         
-          Google资深工程师深度讲解Go语言
+          回到初衷-一个日本创意鬼才的工作艺术
         
       </a>
     
+    
+      <a class="nav-right" href="/article/我自己常用的Vim操作/">
+        
+          我自己常用的Vim操作,持续更新!
+        
+        <span class="nav-arrow"> →</span>
+      </a>
     
   </div>
 
@@ -370,8 +382,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
-      hljs.configure({tabReplace: '  '})
-      hljs.initHighlighting();
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

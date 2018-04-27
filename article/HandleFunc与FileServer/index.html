@@ -10,7 +10,7 @@
   
   <title>
     
-      分类 | 陈境坤的博客
+      HandleFunc与FileServer | 陈境坤的博客
     
   </title>
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -114,8 +114,18 @@
 </header>
 
     <div id="article-banner">
-  <h2>分类</h2>
-  <p class="post-date">2018-04-27 10:22:52</p>
+  <h2>HandleFunc与FileServer</h2>
+  <p class="post-date">2018-03-17 14:47:22</p>
+    
+    
+  <a href="/tags#Go" >
+    <span class="tag-code">Go</span>
+  </a>
+
+  <a href="/tags#FileServer" >
+    <span class="tag-code">FileServer</span>
+  </a>
+
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -124,12 +134,51 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"></section>
+    <section class="markdown-content"><p>假如我们需要在某个请求当中打开一个html<br>例如localhost:8080/home.html<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">|-public</span></span><br><span class="line">	<span class="string">|-home.html</span></span><br><span class="line">	<span class="string">|-home.css</span></span><br><span class="line"><span class="string">|-main.go</span></span><br></pre></td></tr></table></figure></p>
+<p>home.html<br><figure class="highlight htmlbars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang="en"&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset="UTF-8"&gt;</span><br><span class="line">    &lt;title&gt;this is home page&lt;/title&gt;</span><br><span class="line">    &lt;link rel="stylesheet" href="home.css"&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;this is home&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>home.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>简单的使用HandleFunc<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">		f, err := os.Open(<span class="string">"public"</span> + r.URL.Path)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">			fmt.Println(<span class="string">"err:"</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">defer</span> f.Close()</span><br><span class="line">		io.Copy(w, f)</span><br><span class="line">	&#125;)</span><br><span class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们打开页面的时候可以看到h1的颜色并没有变红，检查之后发现h1的格式是text/plain这是默认的Header头，所以我们需要在Content-Type当中声明我们的文件类型<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">		f, err := os.Open(<span class="string">"public"</span> + r.URL.Path)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">			fmt.Println(<span class="string">"err:"</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> contentType <span class="keyword">string</span></span><br><span class="line">		<span class="keyword">switch</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> strings.HasSuffix(r.URL.Path, <span class="string">"css"</span>):</span><br><span class="line">			contentType = <span class="string">"text/css"</span></span><br><span class="line">		<span class="keyword">case</span> strings.HasSuffix(r.URL.Path, <span class="string">"html"</span>):</span><br><span class="line">			contentType = <span class="string">"text/html"</span></span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			contentType = <span class="string">"text/plain"</span></span><br><span class="line">		&#125;</span><br><span class="line">		w.Header().Add(<span class="string">"Content-Type"</span>, contentType)</span><br><span class="line">		io.Copy(w, f)</span><br><span class="line">	&#125;)</span><br><span class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>加入了Content-Type之后可以看到css文件已经可以加载正常了，但是代码实在太长了,如果以后有其它的类型需要加载我们又得往switch里面添加类型。<br>其实使用go内置的FileSever一行代码就可以解决了<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.ListenAndServe(<span class="string">":8080"</span>, http.FileServer(http.Dir(<span class="string">"public"</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</section>
     <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Go" >
+    <span class="tag-code">Go</span>
+  </a>
+
+  <a href="/tags#FileServer" >
+    <span class="tag-code">FileServer</span>
+  </a>
+
+      </div>
     
     <!-- Tags END -->
     <!-- NAV START -->
     
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/article/高效程序员的45个习惯/">
+        <span class="nav-arrow">← </span>
+        
+          高效程序员的45个习惯
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/article/Golang-Reflect反射/">
+        
+          Golang-Reflect反射
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
     <!-- NAV END -->
     <!-- 打赏 START -->
     
@@ -182,7 +231,7 @@
 
 <script>
   (function () {
-    var url = 'https://chenjingkun.com/categories/index.html';
+    var url = 'https://chenjingkun.com/article/HandleFunc与FileServer/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -238,7 +287,7 @@
     var gitmentConfig = "destinyjingkun";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "分类",
+        id: "HandleFunc与FileServer",
         owner: "destinyjingkun",
         repo: "destinyjingkun.github.io",
         oauth: {

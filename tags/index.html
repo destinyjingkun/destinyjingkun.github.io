@@ -120,15 +120,27 @@
 <main class="app-body">
   <div id="tag-cloud">
     
-      <a class="tag0" data-name="tag-Go">Go</a>
+      <a class="tag2" data-name="tag-Go">Go</a>
     
-      <a class="tag3" data-name="tag-基础">基础</a>
+      <a class="tag2" data-name="tag-Reflect">Reflect</a>
     
-      <a class="tag1" data-name="tag-Vim">Vim</a>
+      <a class="tag1" data-name="tag-基础">基础</a>
     
-      <a class="tag0" data-name="tag-设计模式">设计模式</a>
+      <a class="tag2" data-name="tag-FileServer">FileServer</a>
     
-      <a class="tag2" data-name="tag-PHP">PHP</a>
+      <a class="tag2" data-name="tag-Vim">Vim</a>
+    
+      <a class="tag1" data-name="tag-读书笔记">读书笔记</a>
+    
+      <a class="tag0" data-name="tag-团队">团队</a>
+    
+      <a class="tag2" data-name="tag-创意">创意</a>
+    
+      <a class="tag2" data-name="tag-设计模式">设计模式</a>
+    
+      <a class="tag3" data-name="tag-PHP">PHP</a>
+    
+      <a class="tag0" data-name="tag-高效">高效</a>
     
   </div>
   
@@ -137,7 +149,30 @@
       
         <ul class="tag-preview">
           <li>
+            <a href="/article/Golang-Reflect反射/">Golang-Reflect反射</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
             <a href="/article/Google资深工程师深度讲解Go语言/">Google资深工程师深度讲解Go语言</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/HandleFunc与FileServer/">HandleFunc与FileServer</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-Reflect">Reflect</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/Golang-Reflect反射/">Golang-Reflect反射</a>
           </li>
         </ul>
         
@@ -149,6 +184,17 @@
         <ul class="tag-preview">
           <li>
             <a href="/article/Google资深工程师深度讲解Go语言/">Google资深工程师深度讲解Go语言</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-FileServer">FileServer</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/HandleFunc与FileServer/">HandleFunc与FileServer</a>
           </li>
         </ul>
         
@@ -172,6 +218,51 @@
     </div>
     
     <div class="tag-list">
+      <h3 class="tag-name" id="tag-读书笔记">读书笔记</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/不懂带人你就自己干到死/">不懂带人你就自己干到死</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/回到初衷-一个日本创意鬼才的工作艺术/">回到初衷-一个日本创意鬼才的工作艺术</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/高效程序员的45个习惯/">高效程序员的45个习惯</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-团队">团队</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/不懂带人你就自己干到死/">不懂带人你就自己干到死</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-创意">创意</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/回到初衷-一个日本创意鬼才的工作艺术/">回到初衷-一个日本创意鬼才的工作艺术</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
       <h3 class="tag-name" id="tag-设计模式">设计模式</h3>
       
         <ul class="tag-preview">
@@ -188,6 +279,17 @@
         <ul class="tag-preview">
           <li>
             <a href="/article/设计模式-PHP版/">设计模式-PHP版</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-高效">高效</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/article/高效程序员的45个习惯/">高效程序员的45个习惯</a>
           </li>
         </ul>
         
@@ -252,8 +354,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
-      hljs.configure({tabReplace: '  '})
-      hljs.initHighlighting();
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

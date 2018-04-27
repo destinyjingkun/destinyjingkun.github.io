@@ -115,12 +115,13 @@
 
     <div id="article-banner">
   <h2>Vim-YouCompleteMe补全配置</h2>
-  <p class="post-date">2018-02-05</p>
-  <!--<p class="post-date"></p>-->
+  <p class="post-date">2018-02-05 17:41:35</p>
     
-  <p class="post-date">
-      <a class="post-date-link" href="/categories/Vim/">Vim</a>
-  </p>
+    
+  <a href="/tags#Vim" >
+    <span class="tag-code">Vim</span>
+  </a>
+
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -160,9 +161,9 @@
       </a>
     
     
-      <a class="nav-right" href="/article/Google资深工程师深度讲解Go语言/">
+      <a class="nav-right" href="/article/高效程序员的45个习惯/">
         
-          Google资深工程师深度讲解Go语言
+          高效程序员的45个习惯
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -344,8 +345,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
-      hljs.configure({tabReplace: '  '})
-      hljs.initHighlighting();
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

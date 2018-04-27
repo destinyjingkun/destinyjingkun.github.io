@@ -115,12 +115,17 @@
 
     <div id="article-banner">
   <h2>Google资深工程师深度讲解Go语言</h2>
-  <p class="post-date">2018-03-28</p>
-  <!--<p class="post-date"></p>-->
+  <p class="post-date">2018-03-28 15:15:30</p>
     
-  <p class="post-date">
-      <a class="post-date-link" href="/categories/Go/">Go</a>
-  </p>
+    
+  <a href="/tags#Go" >
+    <span class="tag-code">Go</span>
+  </a>
+
+  <a href="/tags#基础" >
+    <span class="tag-code">基础</span>
+  </a>
+
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -205,20 +210,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/article/Vim-YouCompleteMe补全配置/">
+      <a class="nav-left" href="/article/Golang-Reflect反射/">
         <span class="nav-arrow">← </span>
         
-          Vim-YouCompleteMe补全配置
+          Golang-Reflect反射
         
       </a>
     
-    
-      <a class="nav-right" href="/article/设计模式-PHP版/">
-        
-          设计模式-PHP版
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -397,8 +395,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
-      hljs.configure({tabReplace: '  '})
-      hljs.initHighlighting();
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })
