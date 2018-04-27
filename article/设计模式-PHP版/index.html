@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="陈境坤的博客">
+  <meta name="keyword" content="Go,Golang,Gopher,Docker,K8s,Kubernetes,Vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      设计模式-PHP版 | 陈境坤的博客
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo1">( ︎ ●—● ) </div>
+      <!--<span>陈境坤的博客</span>-->
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">归档</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>设计模式-PHP版</h2>
+  <p class="post-date">2018-04-26</p>
+  <!--<p class="post-date"></p>-->
+    
+  <p class="post-date">
+      <a class="post-date-link" href="/categories/PHP/">PHP</a>
+  </p>
+    
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>###设计模式（php版本）<br>目录结构<br>|-database.php<br>|-factory.php<br>|-…<br>|-index.php    //调用的地方<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//database.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Database</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>正常为了实例化database对象都是直接new Database()</code></p>
+<p>####工厂模式<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//factory.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">createDatabase</span><span class="params">()</span></span>&#123;</span><br><span class="line">		retrun <span class="keyword">new</span> Database();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="comment">//当一个对象在多个地方需要被调用的话，使用工厂模式可以减少以后修改的成本</span></span><br><span class="line">$b = <span class="keyword">new</span> Factory::createDatabase();</span><br></pre></td></tr></table></figure></p>
+<p>####单例模式<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//database.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Database</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $db;</span><br><span class="line">	<span class="comment">//确保外部无法直接实例化</span></span><br><span class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">self</span>::$db)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">self</span>::$db;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">self</span>::$db = <span class="keyword">new</span> <span class="keyword">self</span>();</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">self</span>::$db;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//factory.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">createDatabase</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//改用单例创建,无论调用多少次都只会创建一次</span></span><br><span class="line">		retrun Database::getInstance();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>####注册器模式（全局模式）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//register.php</span></span><br><span class="line"><span class="comment">//将对象注册成全局变量，省得每次都调用工厂方法实例化</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Register</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">static</span> $objects;</span><br><span class="line">	<span class="comment">//set obj</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">set</span><span class="params">($index, $obj)</span></span>&#123;</span><br><span class="line">		<span class="keyword">self</span>::$objects[$index] = $obj;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//get obj</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($index)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">self</span>::$objects[$index];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//remove obj</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">_unset</span><span class="params">($index)</span></span>&#123;</span><br><span class="line">		<span class="keyword">unset</span>(<span class="keyword">self</span>::$objects[$index]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//工厂方法就可以将对象映射到注册树上</span></span><br><span class="line"><span class="comment">//factory.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">createDatabase</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//改用单例创建,无论调用多少次都只会创建一次</span></span><br><span class="line">		$db = Database::getInstance();</span><br><span class="line">		Register::set(<span class="string">'db'</span>, $db);</span><br><span class="line">		<span class="keyword">return</span> $db;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php 就可以直接从注册树上拿</span></span><br><span class="line">$db = Register::get(<span class="string">'db'</span>);</span><br></pre></td></tr></table></figure>
+<p>####适配器模式<br>将截然不同的函数接口封装成统一的API<br><code>案例：mysql, mysqli, pdo统一成一致的，类似的还有cache适配器，将memcache, redis, file, apc等统一成一致</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//database.php</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDatabase</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $password, $dbname)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//mysql.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mysql</span> <span class="keyword">implements</span> <span class="title">IDatabase</span></span>&#123;</span><br><span class="line">	<span class="comment">//实现忽略</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $password, $dbname)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//pdo.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pdo</span> <span class="keyword">implements</span> <span class="title">IDatabase</span></span>&#123;</span><br><span class="line">	<span class="comment">//实现忽略</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">connect</span><span class="params">($host, $user, $password, $dbname)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="comment">//需要用到哪种sql服务就new哪种</span></span><br><span class="line">$mysqll = <span class="keyword">new</span> Mysql();</span><br><span class="line">$db-&gt;connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>, <span class="string">'test'</span>);</span><br><span class="line">$db-&gt;query(<span class="string">"show database"</span>);</span><br><span class="line">$db-&gt;close();</span><br></pre></td></tr></table></figure></p>
+<p>####策略模式<br><code>案例：某电商系统需要根据男性用户跟女性用户分别展示不同的类目并根据性别展示不同的广告，如果一直在代码当中使用if判断是男的还是女的,容易造成代码的不可维护性</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//user_strategy.php</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">UserStrategy</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showAd</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showCategory</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//female_user_strategy.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FemaleUserStrategy</span> <span class="title">implement</span> <span class="title">UserStrategy</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showAd</span><span class="params">()</span></span>&#123; <span class="keyword">echo</span> <span class="string">"女装"</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showCategory</span><span class="params">()</span></span>&#123; <span class="keyword">echo</span> <span class="string">"裙子"</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//male_user_strategy.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaleUserStrategy</span> <span class="title">implement</span> <span class="title">UserStrategy</span></span>&#123;</span><br><span class="line">	<span class="comment">//实现忽略</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showAd</span><span class="params">()</span></span>&#123; <span class="keyword">echo</span> <span class="string">"男装"</span>; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">showCategory</span><span class="params">()</span></span>&#123; <span class="keyword">echo</span> <span class="string">"衬衫"</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//到这还是跟适配器模式还是比较想象的，下面看下controller当中</span></span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Page</span></span>&#123;</span><br><span class="line">	<span class="comment">//这边Page跟外部的UserStrategy或者Female,Male等都进行了解耦，因为都是用了内部的$strategy</span></span><br><span class="line">	<span class="comment">//策略模式的依赖倒置跟控制反转</span></span><br><span class="line">	<span class="keyword">protected</span> $strategy;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span>&#123; <span class="comment">//进行该有的showAd,showCategory操作而不同去区分是男性还是女性&#125;</span></span><br><span class="line">	<span class="comment">//暴露给外面调用设置策略用的</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">setStrategy</span><span class="params">(UserStrategy $strategy)</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;strategy = $strategy;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//外部调用，这样可以确保Page类的index方法里面没有if else判断性别类型</span></span><br><span class="line">$page = <span class="keyword">new</span> Page;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'female'</span>]))&#123;</span><br><span class="line">	$strategy = <span class="keyword">new</span> FemaleUserStrategy();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	$strategy = <span class="keyword">new</span> MaleUserStrategy();</span><br><span class="line">&#125;</span><br><span class="line">$page-&gt;setStrategy($strategy);</span><br></pre></td></tr></table></figure></p>
+<p>####数据对象映射模式<br>数据对象映射模式：是将对象和数据存储映射起来，这样对一个对象的操作会映射成对数据存储的操作，典型的有ORM<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//user.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">	<span class="comment">//外部允许访问</span></span><br><span class="line">	<span class="keyword">public</span> $id;</span><br><span class="line">	<span class="keyword">public</span> $name;</span><br><span class="line">	<span class="keyword">public</span> $mobile;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> $db;</span><br><span class="line">	<span class="comment">//方便演示：这边使用的是构造方法跟析构方法，真正的orm是独立成各种create,update,delete等方法</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($id)</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;db = <span class="keyword">new</span> Mysql();</span><br><span class="line">		<span class="keyword">$this</span>-&gt;db-&gt;connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>, <span class="string">'test'</span>);</span><br><span class="line">		$res = <span class="keyword">$this</span>-&gt;db-&gt;query(<span class="string">"select * from user limit 1"</span>);</span><br><span class="line">		$data = $res-&gt;fetch_assoc();</span><br><span class="line">		<span class="keyword">$this</span>-&gt;id = $data[<span class="string">'id'</span>];</span><br><span class="line">		<span class="keyword">$this</span>-&gt;mobile = $data[<span class="string">'mobile'</span>];</span><br><span class="line">		<span class="keyword">$this</span>-&gt;name = $data[<span class="string">'name'</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//析构方法</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;db-&gt;query(<span class="string">"update user set name ='&#123;$this-&gt;name&#125;', mobiel='&#123;$this-&gt;mobile&#125;' where id = $this-&gt;id"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line">$user = <span class="keyword">new</span> User(<span class="number">1</span>);<span class="comment">//拿到对应id为1的用户</span></span><br><span class="line">$user-&gt;mobile = <span class="string">'18059219999'</span>;</span><br><span class="line">$user-&gt;name = <span class="string">'test'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>####观察者模式（Observer）<br>观察者模式：当一个对象状态发生改变时，依赖它的对象全部会收到通知，并自动更新<br>场景：一个事件发生后，要执行一连串更新操作，传统的编程方式，就是在事件的代码之后直接加入处理逻辑，当更新的逻辑增多之后，代码会变得难以维护，这种方法是耦合的，增加新的逻辑需要修改事件的主体代码，而观察者模式实现了低耦合，非侵入式的通知与更新机制<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'event happened!'</span>;</span><br><span class="line">		<span class="comment">//传统方法,直接加在后面</span></span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'new event1 add'</span>;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'new event2 add'</span>;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">'new event3 add'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//传统调用</span></span><br><span class="line">$event = <span class="keyword">new</span> Event;</span><br><span class="line">$event-&gt;trigger();</span><br><span class="line"><span class="comment">//...............................</span></span><br><span class="line"><span class="comment">//修改成观察者模式</span></span><br><span class="line"><span class="comment">//首先声明一个抽象类</span></span><br><span class="line"><span class="comment">//event_generator.php</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">EventGenerator</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> $observers = <span class="keyword">array</span>();</span><br><span class="line">	<span class="comment">//添加观察者</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">addObserver</span><span class="params">(Observer $obs)</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;observers[] = $obs;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//通知其它事件进行更新</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">notify</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;observers <span class="keyword">as</span> $obs)&#123;</span><br><span class="line">			$obs-&gt;update();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//observer.php</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//所以Event就要改成如下</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> <span class="keyword">extends</span> <span class="title">EventGenerator</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">trigger</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"event"</span>;</span><br><span class="line">		<span class="comment">//下面的时间就交给基类去通知其它观察者进行更新</span></span><br><span class="line">		<span class="keyword">$this</span>-&gt;notify();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//然后就可以添加新的观察者，而对原代码不会进行修改</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer1</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"逻辑1"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer2</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"逻辑2"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer3</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">($event_info = null)</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"逻辑3"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用就可以更改为</span></span><br><span class="line">$event = <span class="keyword">new</span> Event;</span><br><span class="line">$event-&gt;addObserver(<span class="keyword">new</span> Observer1());</span><br><span class="line">$event-&gt;addObserver(<span class="keyword">new</span> Observer2());</span><br><span class="line">$event-&gt;addObserver(<span class="keyword">new</span> Observer3());</span><br><span class="line">$event-&gt;trigger();</span><br></pre></td></tr></table></figure></p>
+<p>####原型模式<br>1.原型模式与工厂模式类似，都是用来创建对象<br>2.与工厂模式的实现不同，原型模式是先创建好一个原型对象，然后通过clone原型对象来创建新的对象。这样就免去了类创建时重复的初始化操作<br>3.原型模式适用于大对象的创建，创建一个大对象需要很大的开销，如果每次new就会消耗很大，而原型模式仅需要内存拷贝即可<br>实例：假定有一个Canvas的类<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//canvas.php 画布类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> $data;</span><br><span class="line">	<span class="comment">//打印一个矩形*</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">($width = <span class="number">20</span>, $height = <span class="number">10</span>)</span></span>&#123;</span><br><span class="line">		$data = <span class="keyword">array</span>();</span><br><span class="line">		<span class="keyword">for</span>($i =<span class="number">0</span>; $i&lt; $height; $i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>($j = <span class="number">0</span>; $j&lt; $width; $j++)&#123;</span><br><span class="line">				$data[$i][$j] = <span class="string">'*'</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;data = $data;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;data <span class="keyword">as</span> $line)&#123;</span><br><span class="line">			<span class="keyword">foreach</span>($line <span class="keyword">as</span> $char)&#123;</span><br><span class="line">				<span class="keyword">echo</span> $char;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">echo</span> <span class="string">"&lt;br/&gt;\n"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//绘制一个空的矩形</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">rect</span><span class="params">($a1, $a2, $b1, $b2)</span></span>&#123;</span><br><span class="line">		<span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;data <span class="keyword">as</span> $k1=&gt;$line )&#123;</span><br><span class="line">			<span class="keyword">if</span>($k1 &lt; $a1 <span class="keyword">or</span> $k1 &gt; $a2) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">foreach</span>($line <span class="keyword">as</span> $k2 =&gt;$char)&#123;</span><br><span class="line">				<span class="keyword">if</span>($k2 &lt; $b1 <span class="keyword">or</span> $k2 &gt; $b2) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">$this</span>-&gt;data[$k1][$k2] = <span class="string">'&amp;nbsp;'</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.php</span></span><br><span class="line">$canvas = <span class="keyword">new</span> Canvas();</span><br><span class="line">$canvas-&gt;init();</span><br><span class="line">$canvas-&gt;rect(<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">12</span>);</span><br><span class="line">$canvas-&gt;draw();</span><br><span class="line"><span class="comment">//假如我们需要绘制2次，因为第一次调用rect()的时候已经对data进行了赋值，导致我们第二次再使用的时候只能重新实例化，而每次实例化的时候为了创建一个data我们都得执行200次的循环，消耗非常大</span></span><br><span class="line">$canvas = <span class="keyword">new</span> Canvas();</span><br><span class="line">$canvas-&gt;init();</span><br><span class="line">$canvas-&gt;rect(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>);</span><br><span class="line">$canvas-&gt;draw();</span><br><span class="line"><span class="comment">//而是改成.................</span></span><br><span class="line">$prototype = <span class="keyword">new</span> Canvas();</span><br><span class="line">$prototype-&gt;init();</span><br><span class="line"></span><br><span class="line">$canvas1 = <span class="keyword">clone</span> $prototype;</span><br><span class="line">$canvas1-&gt;rect(<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">12</span>);</span><br><span class="line">$canvas1-&gt;draw();</span><br><span class="line"></span><br><span class="line">$canvas2 = <span class="keyword">clone</span> $prototype;</span><br><span class="line">$canvas2-&gt;rect(<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>);</span><br><span class="line">$canvas2-&gt;draw();</span><br></pre></td></tr></table></figure>
+<p>####装饰器模式<br>1.装饰器模式（Decorator）,可以动态地添加修改类的功能<br>2.一个类提供了一项功能，如果要在修改并添加额外的功能，传统的编程模式，需要写一个子类继承它，并重新实现类的方法<br>3.使用装饰器模式，仅需要再运行时添加一个装饰器对象即可实现，可以实现最大的灵活性<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//了解Python的装饰器可能就比较容易理解了</span></span><br><span class="line"><span class="comment">//使用上面的Canvas类，假设我们的draw需要改成红色的，传统的做法是新增一个子类，然后重写draw这个方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas2</span> <span class="keyword">extends</span> <span class="title">Canvas</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"&lt;div style='color:red'&gt;"</span>;</span><br><span class="line">		<span class="keyword">parent</span>::draw();</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"&lt;/div&gt;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//然后调用子类的draw()，如果下次还需要变成绿色的？或者改变draw大小等，一直重写就达不到灵活性，最好的方法就是把它做成一个装饰器</span></span><br><span class="line"><span class="comment">//draw_decorator.php</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">DrawDecorator</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//canvas.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Canvas</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $decorators = <span class="keyword">array</span>();<span class="comment">//用来保存装饰器对象</span></span><br><span class="line">	<span class="comment">//在draw之前跟之后调用，源代码就不用更改</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;beforeAdd();</span><br><span class="line">		<span class="comment">//原来逻辑代码</span></span><br><span class="line">		<span class="keyword">$this</span>-&gt;afterAdd();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">addDecorator</span><span class="params">(DrawDecorator $decorator)</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;decorators[] = $decorator;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//然后遍历逐个调用装饰器的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">beforeAdd</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;decorators <span class="keyword">as</span> $dec)&#123;</span><br><span class="line">			$dec-&gt;beforeDraw();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">afterAdd</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//这边注意的话decorators的话要进行反转，before是先进先出，after是后进先出</span></span><br><span class="line">		$decorators = array_reverse(<span class="keyword">$this</span>-&gt;decorators);</span><br><span class="line">		<span class="keyword">foreach</span>($decorators <span class="keyword">as</span> $dec)&#123;</span><br><span class="line">			$dec-&gt;afterDraw();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//接下来只需要去实现装饰器的对象即可</span></span><br><span class="line">将上面的传统方法改成如下的装饰器对象</span><br><span class="line"><span class="comment">//color_decorator.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorDecorator</span> <span class="keyword">implements</span> <span class="title">DrawDecorator</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $color;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($color = <span class="string">'red'</span>)</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;color = $color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">beforeDraw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"&lt;div style='color:&#123;$this-&gt;color&#125;'&gt;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">afterDraw</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">"&lt;/div&gt;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line">$canvas = <span class="keyword">new</span> Canvas();</span><br><span class="line">$canbas = init();</span><br><span class="line"><span class="comment">//在绘制之前加入颜色装饰器即可</span></span><br><span class="line">$red_docorator = <span class="keyword">new</span> ColorDecorator(<span class="string">'green'</span>);</span><br><span class="line">$canvas-&gt;addDecorator($red_decorator);</span><br><span class="line"><span class="comment">//需要修改大小只需要再添加一个SizeDecorator即可，这样就实现了解耦</span></span><br><span class="line">$canvas-&gt;rect(<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">12</span>);</span><br><span class="line">$canvas-&gt;draw();</span><br></pre></td></tr></table></figure></p>
+<p>####迭代器模式<br>1.迭代器模式，在不需要了解内部实现的前提下，遍历一个聚合对象的内部元素<br>2.相比于传统的编程模式，迭代器模式可以隐藏遍历元素的所需的操作<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//all_user.php</span></span><br><span class="line"><span class="comment">//迭代器需要继承spr的迭代器接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AllUser</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $ids;</span><br><span class="line">	<span class="keyword">protected</span> $data; <span class="comment">//保存从数据库取到的数据</span></span><br><span class="line">	<span class="keyword">protected</span> $index; <span class="comment">//表示迭代器的当前位置</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$db= Factory::getDatabase();</span><br><span class="line">		$result = $db-&gt;query(<span class="string">"select id from user"</span>);</span><br><span class="line">		<span class="keyword">$this</span>-&gt;ids = $result-&gt;fetch_all(MYSQL_ASSOC);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//需要实现迭代器的5个方法</span></span><br><span class="line">	<span class="comment">//调用顺序： 2</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">current</span><span class="params">()</span></span>&#123;</span><br><span class="line">		$id = <span class="keyword">$this</span>-&gt;ids[<span class="keyword">$this</span>-&gt;index][<span class="string">'id'</span>];<span class="comment">//拿到对应数据库当中的ID;</span></span><br><span class="line">		<span class="keyword">return</span> Factory::getUser($id); <span class="comment">//返回用户对象</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//调用顺序： 4</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;index ++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//调用顺序： 1</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">valid</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//代表没有下一个元素了</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;index &lt; count(<span class="keyword">$this</span>-&gt;ids);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//调用顺序： 0</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">rewind</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;index = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//调用顺序： 5 获取当前的索引</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">key</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;index;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line">$users = <span class="keyword">new</span> AllUser();</span><br><span class="line"><span class="comment">//而不是$users= new User().find_all();这样的形式</span></span><br><span class="line"><span class="keyword">foreach</span> ($users <span class="keyword">as</span> $user)&#123;</span><br><span class="line">	var_dump($user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>####代理模式<br>1.在客户端与实体之间建立一个代理对象（proxy）,客户端对实体进行操作全部委派给代理对象，隐藏实体的具体实现细节<br>2.Proxy还可以与业务分离，部署到另外的服务器，业务代码种通过RPC来委派任务<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="comment">//传统方法,不管是读写等操作都要显示的知道他的操作工程</span></span><br><span class="line">$db = Factory::getDatabase(<span class="string">'slave'</span>);</span><br><span class="line">$info = $db-&gt;query(<span class="string">"select name from user where id = 1 limit 1"</span>);</span><br><span class="line"></span><br><span class="line">$db1 = Factory::getDatabase(<span class="string">'master'</span>);</span><br><span class="line">$db1-&gt;query(<span class="string">"update user name='evan' where id=1 limit 1"</span>);</span><br><span class="line"><span class="comment">//代理模式</span></span><br><span class="line"><span class="comment">//iuserproxy.php</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IUserProxy</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">getUsername</span><span class="params">($id)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">setUsername</span><span class="params">($id, $name)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//proxy.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">IUserProxy</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">getUsername</span><span class="params">($id)</span></span>&#123;</span><br><span class="line">		$db = Factory::getDatabase(<span class="string">'slave'</span>);</span><br><span class="line">$info = $db-&gt;query(<span class="string">"select name from user where id = 1 limit 1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">setUsername</span><span class="params">($id, $name)</span></span>&#123;</span><br><span class="line">		$db = Factory::getDatabase(<span class="string">'master'</span>);</span><br><span class="line">		$db-&gt;query(<span class="string">"update user name='evan' where id=1 limit 1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//index.php</span></span><br><span class="line"><span class="comment">//这样在整个逻辑里面就没有对数据库操作的详细流程。跟java的service层有点相似</span></span><br><span class="line">$proxy = <span class="keyword">new</span> Proxy();</span><br><span class="line">$proxy-&gt;getUsername($id);</span><br><span class="line">$proxy-&gt;setUsername($id, $proxy);</span><br></pre></td></tr></table></figure></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#设计模式" >
+    <span class="tag-code">设计模式</span>
+  </a>
+
+  <a href="/tags#PHP" >
+    <span class="tag-code">PHP</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/article/Vim-YouCompleteMe补全配置/">
+        <span class="nav-arrow">← </span>
+        
+          Vim-YouCompleteMe补全配置
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <!--<div class="money-like">-->
+        <!--<div class="reward-btn">-->
+          <!--赏-->
+          <!--<span class="money-code">-->
+            <!--<span class="alipay-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用支付宝打赏</b>-->
+            <!--</span>-->
+            <!--<span class="wechat-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用微信打赏</b>-->
+            <!--</span>-->
+          <!--</span>-->
+        <!--</div>-->
+        <!--<p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>-->
+      <!--</div>-->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <!--<div class="qrcode">-->
+        <!--<canvas id="share-qrcode"></canvas>-->
+        <!--<p class="notice">扫描二维码，分享此文章</p>-->
+      <!--</div>-->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="nav">none</ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://chenjingkun.com/article/设计模式-PHP版/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "destinyjingkun";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "设计模式-PHP版",
+        owner: "destinyjingkun",
+        repo: "destinyjingkun.github.io",
+        oauth: {
+          client_id: "6bc1a69955e9ae2bdd12",
+          client_secret: "80597a2abf1f99509a68be4671284a1400fc3ae5"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
