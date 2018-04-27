@@ -122,11 +122,11 @@
     
       <a class="tag0" data-name="tag-Go">Go</a>
     
-      <a class="tag2" data-name="tag-基础">基础</a>
+      <a class="tag3" data-name="tag-基础">基础</a>
     
       <a class="tag1" data-name="tag-Vim">Vim</a>
     
-      <a class="tag1" data-name="tag-设计模式">设计模式</a>
+      <a class="tag0" data-name="tag-设计模式">设计模式</a>
     
       <a class="tag2" data-name="tag-PHP">PHP</a>
     
@@ -252,6 +252,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
+      hljs.configure({tabReplace: '  '})
+      hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

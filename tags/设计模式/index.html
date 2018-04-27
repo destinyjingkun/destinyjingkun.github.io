@@ -134,18 +134,18 @@
       </div>
     
       <div class="section-list-item">
+        <a href="/article/Google资深工程师深度讲解Go语言/" class="archive-title">Google资深工程师深度讲解Go语言</a>
+        <p class="archive-date">03-28</p>
+      </div>
+    
+      <div class="section-list-item">
         <a href="/article/Vim-YouCompleteMe补全配置/" class="archive-title">Vim-YouCompleteMe补全配置</a>
-        <p class="archive-date">04-26</p>
+        <p class="archive-date">02-05</p>
       </div>
     
       <div class="section-list-item">
         <a href="/article/我自己常用的Vim操作/" class="archive-title">我自己常用的Vim操作,持续更新!</a>
-        <p class="archive-date">04-26</p>
-      </div>
-    
-      <div class="section-list-item">
-        <a href="/article/Google资深工程师深度讲解Go语言/" class="archive-title">Google资深工程师深度讲解Go语言</a>
-        <p class="archive-date">04-26</p>
+        <p class="archive-date">02-02</p>
       </div>
     
   </div>
@@ -202,6 +202,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
+      hljs.configure({tabReplace: '  '})
+      hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

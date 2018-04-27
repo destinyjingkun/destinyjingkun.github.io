@@ -115,7 +115,7 @@
 
     <div id="article-banner">
   <h2>Vim-YouCompleteMe补全配置</h2>
-  <p class="post-date">2018-04-26</p>
+  <p class="post-date">2018-02-05</p>
   <!--<p class="post-date"></p>-->
     
   <p class="post-date">
@@ -160,9 +160,9 @@
       </a>
     
     
-      <a class="nav-right" href="/article/设计模式-PHP版/">
+      <a class="nav-right" href="/article/Google资深工程师深度讲解Go语言/">
         
-          设计模式-PHP版
+          Google资深工程师深度讲解Go语言
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -344,6 +344,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
+      hljs.configure({tabReplace: '  '})
+      hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

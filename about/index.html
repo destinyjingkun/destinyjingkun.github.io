@@ -222,6 +222,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
+      hljs.configure({tabReplace: '  '})
+      hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })

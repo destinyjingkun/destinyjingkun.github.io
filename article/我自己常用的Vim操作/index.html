@@ -115,7 +115,7 @@
 
     <div id="article-banner">
   <h2>我自己常用的Vim操作,持续更新!</h2>
-  <p class="post-date">2018-04-26</p>
+  <p class="post-date">2018-02-02</p>
   <!--<p class="post-date"></p>-->
     
   <p class="post-date">
@@ -129,26 +129,58 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="Normal模式"><a href="#Normal模式" class="headerlink" title="Normal模式"></a>Normal模式</h1><p>i    当前位置插入<br>I    当前行的最前面位置插入<br>a    当前位置的后面插入<br>A    当前行最后位置插入<br>x    从左往右删除当前位置字符<br>X    从右往左删除当前位置字符<br>u    撤销操作相当于CTRL+Z<br>Ctrl+r    反撤销,相当于ctrl+alt+z<br>o    下一行插入<br>O    上一行插入<br>D    当前位置往后的全删了<br>dd    删除整行<br>yy        复制整行(y代表yank)<br>p        粘贴(paste)<br>w    跳到下一个单词的开头<br>e    跳到下一个单词的末尾<br>b 跳到上一个单词的开头</p>
-<ul>
-<li>大小写转换<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~       <span class="comment">#将光标下的字母改变大小写</span></span><br><span class="line"><span class="number">3</span>~      <span class="comment">#将光标位置开始的3个字母改变其大小写</span></span><br><span class="line">g~~	  <span class="comment">#改变当前行字母的大小写</span></span><br><span class="line">gUU		<span class="comment">#当前行转大写</span></span><br><span class="line">guu 	<span class="comment">#当前行转小写</span></span><br><span class="line">gu=/gU=	<span class="comment">#大小写转换=是范围</span></span><br><span class="line"><span class="comment">#例如:guw 就是向后一个单词转小写</span></span><br><span class="line">gU1 	<span class="comment">#就是向下一行转大写</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>f+字母    跳到该行的第一个搜索字母上<br>/全篇搜索,查到的结果使用nN进行上下跳转<br>dw删除当前位置到下一个单词之间的内容含空格<br>db    相反<br>cw change当前位置到下一个单词之间的内容,不含空格,并进入插入模式<br>di(    删除括号内的内容delete in ()<br>类似的还有di[ di{} di[{等<br>()可以用b代替=&gt;dib,{}可以用B代替=&gt;diB(b是breaket)<br>R从当前位置进入replace模式(*replace模式下,按delete可以单步撤销)<br>r 替换当前位置字符(R无限个,r仅单个)<br>同时ci( ci[就是change in ()<br>ctrl+f/ctrl+b    翻一页<br>ctrl+d/ctrl+u    翻半页<br>J    两行合并成一行,并添加空格隔开(join)<br>ctrl+w+方向键 进行窗口跳转</p>
-<h1 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h1><h2 id="代码提示-原生OnmiComplete"><a href="#代码提示-原生OnmiComplete" class="headerlink" title="代码提示,原生OnmiComplete"></a>代码提示,原生OnmiComplete</h2><p><c-x><c-o>代码提示</c-o></c-x></p>
-<p><c-n>向下选择</c-n></p>
-<p><c-p>向上选择</c-p></p>
+    <section class="markdown-content"><h2 id="vim常用"><a href="#vim常用" class="headerlink" title="vim常用"></a>vim常用</h2><p>@(Vim笔记)<br><img src="./1524808182243.png" alt="Alt text"></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>鉴于我的Mac实在太古老了,开大型的ide整个机子散热基本可以蒸肠粉了,于是还是切回到Vim底下进行开发,以下是我自己个人开发当中比较经常用到的一些操作,这个帖子我会不间断的进行更新,有什么比较好的操作都会补上.给那些懒得看Vim tutorial的人上手用.<br><code>小Tip:</code></p>
+<blockquote>
+<p>Vim的Ctrl可以简写成c/C,Shift可以简写成s/S,Enter可以简写成CR/cr</p>
+</blockquote>
+<h1 id="Normal模式"><a href="#Normal模式" class="headerlink" title="Normal模式"></a>Normal模式</h1><h2 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">w</span>	跳到下一个单词的开头</span><br><span class="line"><span class="keyword">e</span>	跳到下一个单词的末尾</span><br><span class="line"><span class="keyword">b</span> 	跳到上一个单词的开头</span><br><span class="line">^	移动到当前行开头</span><br><span class="line">%	移动到当前行末尾</span><br><span class="line">ctrl-<span class="keyword">f</span>/ctrl-<span class="keyword">b</span>	翻一页</span><br><span class="line">ctrl-d/ctrl-<span class="keyword">u</span>	翻半页</span><br><span class="line">ctrl-<span class="keyword">w</span>-方向键	进行窗口跳转</span><br></pre></td></tr></table></figure>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">i	当前位置插入</span><br><span class="line">I	当前行的最前面位置插入</span><br><span class="line"><span class="keyword">a</span>	当前位置的后面插入</span><br><span class="line">A	当前行最后位置插入</span><br><span class="line"><span class="keyword">o</span>	下一行插入</span><br><span class="line">O	上一行插入</span><br></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">x</span>	从左往右删除当前位置字符</span><br><span class="line"><span class="keyword">X</span>	从右往左删除当前位置字符</span><br><span class="line">D	当前位置往后的全删了</span><br><span class="line">dd	删除整行</span><br><span class="line">dw	删除当前位置到下一个单词之间的内容含空格</span><br><span class="line">db	与dw相反</span><br><span class="line"><span class="keyword">di</span>(	删除括号内的内容<span class="keyword">delete</span> in ()</span><br><span class="line">类似的还有<span class="keyword">di</span>[ <span class="keyword">di</span>&#123;&#125; <span class="keyword">di</span>[&#123;等</span><br><span class="line">()可以用<span class="keyword">b</span>代替=&gt;dib,&#123;&#125;可以用B代替=&gt;diB(<span class="keyword">b</span>是breaket)</span><br><span class="line"><span class="keyword">u</span>	撤销操作相当于CTRL+Z</span><br><span class="line">ctrl-r	反撤销,相当于ctrl+alt+<span class="keyword">z</span></span><br><span class="line">shift-<span class="keyword">j</span>	两行合并成一行,并添加空格隔开(<span class="keyword">join</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yy	复制整行(<span class="keyword">y</span>代表<span class="keyword">yank</span>)</span><br><span class="line">yw	复制一个单词</span><br><span class="line"><span class="keyword">p</span>	粘贴(paste)</span><br></pre></td></tr></table></figure>
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cw</span> <span class="keyword">change</span>当前位置到下一个单词之间的内容,不含空格,并进入插入模式</span><br><span class="line">R从当前位置进入replace模式(*replace模式下,按<span class="keyword">delete</span>可以单步撤销)</span><br><span class="line">r 替换当前位置字符(R无限个,r仅单个)</span><br><span class="line">同时ci( ci[就是<span class="keyword">change</span> in ()</span><br></pre></td></tr></table></figure>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~		 将光标下的字母改变大小写</span><br><span class="line"><span class="number">3</span>~      将光标位置开始的<span class="number">3</span>个字母改变其大小写</span><br><span class="line">g~~	  改变当前行字母的大小写</span><br><span class="line">gUU		当前行转大写</span><br><span class="line">guu 	当前行转小写</span><br><span class="line"><span class="keyword">gu</span>=/gU=	大小写转换=是范围</span><br><span class="line">#例如:guw 就是向后一个单词转小写</span><br><span class="line">gU1 	就是向下一行转大写</span><br></pre></td></tr></table></figure>
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">f</span>-字母	跳到该行的第一个搜索字母上</span><br><span class="line">/word	全篇搜索,查到的结果使用nN进行上下跳转</span><br></pre></td></tr></table></figure>
 <hr>
-<h1 id="视图模式"><a href="#视图模式" class="headerlink" title="视图模式"></a>视图模式</h1><p>shlft+v    横向选择<br>ctrl+v    纵向选择<br>d    删除选中内容<br>y    复制选中内容<br>oO调整固定点</p>
-<h1 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h1><p>:tabe + 文件名 新建一个窗口打开文件(tab edit filename)<br>:tabn/:tabp切换窗口<br>:sp + filename 水平分割画面(split page)<br>:vs + filename 垂直分割画面(vertical split)<br>:wa     保存全部write all<br>:qa    退出全部quit all</p>
+<h1 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h1><h2 id="代码提示-原生OnmiComplete"><a href="#代码提示-原生OnmiComplete" class="headerlink" title="代码提示,原生OnmiComplete"></a>代码提示,原生OnmiComplete</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&lt;c-x&gt;</span><span class="symbol">&lt;c-o&gt;</span>代码提示</span><br><span class="line"><span class="symbol">&lt;c-n&gt;</span>向下选择</span><br><span class="line"><span class="symbol">&lt;c-p&gt;</span>向上选择</span><br></pre></td></tr></table></figure>
 <hr>
+<h1 id="视图模式"><a href="#视图模式" class="headerlink" title="视图模式"></a>视图模式</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">shlft+v	横向选择</span><br><span class="line">ctrl+v	纵向选择</span><br><span class="line">d	删除选中内容</span><br><span class="line"><span class="keyword">y</span>	复制选中内容</span><br><span class="line">oO	调整固定点</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h1><h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">tabe</span>-filename	新建一个窗口打开文件(<span class="keyword">tab</span> <span class="keyword">edit</span> filename)</span><br><span class="line">:<span class="keyword">tabn</span>/:<span class="keyword">tabp</span>		切换窗口</span><br><span class="line">:<span class="keyword">sp</span>-filename 	水平分割打开文件(<span class="keyword">split</span> page)</span><br><span class="line">:<span class="keyword">vs</span>-filename 	垂直分割打开文件(<span class="keyword">vertical</span> <span class="keyword">split</span>)</span><br><span class="line">:<span class="keyword">wa</span> 			保存全部<span class="keyword">write</span> <span class="keyword">all</span></span><br><span class="line">:<span class="keyword">qa</span>				退出全部<span class="keyword">quit</span> <span class="keyword">all</span></span><br><span class="line">:<span class="keyword">ls</span>				查看当前已打开的<span class="keyword">buffer</span></span><br><span class="line">:<span class="keyword">b</span>-buffer_number 可切换<span class="keyword">buffer</span> (num为<span class="keyword">buffer</span> <span class="keyword">list</span>中的编号)</span><br><span class="line">:<span class="keyword">bn</span> 			<span class="keyword">buffer</span>列表中下一个 <span class="keyword">buffer</span></span><br><span class="line">:<span class="keyword">bp</span> 			<span class="keyword">buffer</span>列表中前一个 <span class="keyword">buffer</span></span><br><span class="line">:b# 			你之前所在的前一个 <span class="keyword">buffer</span></span><br></pre></td></tr></table></figure>
+<h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><blockquote>
 <p>:{作用范围}s/{目标}/{替换}/{替换标志}</p>
-<h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><p>作用范围分为当前行、全文、选区等等。<br>当前行：<br><code>:s/foo/bar/g</code><br>全文:<br><code>:%s/foo/bar/g</code><br>选区，在Visual模式下选择区域后输入:，Vim即可自动补全为 :’&lt;,’&gt;。<br><code>:&#39;&lt;,&#39;&gt;s/foo/bar/g</code><br>2-11 行<br><code>:5,12s/foo/bar/g</code><br>当前行.与接下来两行+2：<br><code>:.,+2s/foo/bar/g</code></p>
+</blockquote>
+<p>作用范围分为当前行、全文、选区等等。<br>当前行：</p>
+<blockquote>
+<p>:s/foo/bar/g</p>
+</blockquote>
+<p>全文:</p>
+<blockquote>
+<p>:%s/foo/bar/g</p>
+</blockquote>
+<p>选区，在Visual模式下选择区域后输入:，Vim即可自动补全为 :’&lt;,’&gt;。</p>
+<blockquote>
+<p>:’&lt;,’&gt;s/foo/bar/g<br>2-11 行<br>:5,12s/foo/bar/g<br>当前行.与接下来两行+2：<br>:.,+2s/foo/bar/g</p>
+</blockquote>
 <h2 id="替换标志"><a href="#替换标志" class="headerlink" title="替换标志"></a>替换标志</h2><p>上文中命令结尾的g即是替换标志之一，表示全局global替换（即替换目标的所有出现）。 还有很多其他有用的替换标志：</p>
-<p>空替换标志表示只替换从光标位置开始，目标的第一次出现：<br><code>:%s/foo/bar</code><br>i表示大小写不敏感查找，I表示大小写敏感：<br><code>:%s/foo/bar/i</code><br>等效于模式中的\c（不敏感）或\C（敏感）<br><code>:%s/foo\c/bar</code><br>c表示需要确认，例如全局查找”foo”替换为”bar”并且需要确认：<br><code>:%s/foo/bar/gc</code></p>
-<h3 id="跨文件替换-项目内替换"><a href="#跨文件替换-项目内替换" class="headerlink" title="跨文件替换,项目内替换"></a>跨文件替换,项目内替换</h3><p><code>:arg *.go</code> 列出当前目录下所有的go文件<br><code>:arg</code>列出所有的buffer文件<br><code>:argadd *.js</code>追加所有的js到buffer中<br>具体例子:<br>开始替换<br><code>:arg *.go</code><br><code>:argdo %s/pattern/replace/ge | update</code><br>将所有的.go文件加入到buffer,然后将pattern的内容替换成replace,然后保存文件</p>
-<hr>
-<h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h2><p>:ls    查看当前已打开的buffer<br>命令 b num 可切换buffer (num为buffer list中的编号)<br>其它命令:<br>:bn – buffer列表中下一个 buffer<br>:bp – buffer列表中前一个 buffer<br>:b# – 你之前所在的前一个 buffer</p>
+<p>空替换标志表示只替换从光标位置开始，目标的第一次出现：</p>
+<blockquote>
+<p>:%s/foo/bar</p>
+</blockquote>
+<p>i表示大小写不敏感查找，I表示大小写敏感：</p>
+<blockquote>
+<p>:%s/foo/bar/i</p>
+</blockquote>
+<p>等效于模式中的\c（不敏感）或\C（敏感）</p>
+<blockquote>
+<p>:%s/foo\c/bar</p>
+</blockquote>
+<p>c表示需要确认，例如全局查找”foo”替换为”bar”并且需要确认：</p>
+<blockquote>
+<p>:%s/foo/bar/gc</p>
+</blockquote>
+<h2 id="跨文件替换-项目内替换"><a href="#跨文件替换-项目内替换" class="headerlink" title="跨文件替换,项目内替换"></a>跨文件替换,项目内替换</h2><p>1.把文件加入到buffer当中<br><code>:arg *.go</code> 列出当前目录下所有的go文件<br><code>:arg</code>列出所有的buffer文件<br><code>:argadd *.js</code>追加所有的js到buffer中</p>
+<p>2.执行替换<br><code>:argdo %s/pattern/replace/ge | update</code><br>将所有的.go文件加入到buffer,然后将pattern的内容替换成replace,然后保存文件</p>
 </section>
     <!-- Tags START -->
     
@@ -166,13 +198,6 @@
     
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
-    
-      <a class="nav-left" href="/article/Google资深工程师深度讲解Go语言/">
-        <span class="nav-arrow">← </span>
-        
-          Google资深工程师深度讲解Go语言
-        
-      </a>
     
     
       <a class="nav-right" href="/article/Vim-YouCompleteMe补全配置/">
@@ -226,7 +251,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Normal模式"><span class="toc-nav-text">Normal模式</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#插入模式"><span class="toc-nav-text">插入模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码提示-原生OnmiComplete"><span class="toc-nav-text">代码提示,原生OnmiComplete</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#视图模式"><span class="toc-nav-text">视图模式</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#命令行模式"><span class="toc-nav-text">命令行模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#作用范围"><span class="toc-nav-text">作用范围</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#替换标志"><span class="toc-nav-text">替换标志</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#跨文件替换-项目内替换"><span class="toc-nav-text">跨文件替换,项目内替换</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#buffer"><span class="toc-nav-text">buffer</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#vim常用"><span class="toc-nav-text">vim常用</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Normal模式"><span class="toc-nav-text">Normal模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#移动"><span class="toc-nav-text">移动</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#插入"><span class="toc-nav-text">插入</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#删除"><span class="toc-nav-text">删除</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#复制"><span class="toc-nav-text">复制</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#替换"><span class="toc-nav-text">替换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#大小写转换"><span class="toc-nav-text">大小写转换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#搜索"><span class="toc-nav-text">搜索</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#插入模式"><span class="toc-nav-text">插入模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#代码提示-原生OnmiComplete"><span class="toc-nav-text">代码提示,原生OnmiComplete</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#视图模式"><span class="toc-nav-text">视图模式</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#命令行模式"><span class="toc-nav-text">命令行模式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#常用"><span class="toc-nav-text">常用</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#作用范围"><span class="toc-nav-text">作用范围</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#替换标志"><span class="toc-nav-text">替换标志</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#跨文件替换-项目内替换"><span class="toc-nav-text">跨文件替换,项目内替换</span></a></li></ol>
     
   </div>
 </aside>
@@ -359,6 +384,8 @@
       codeTag.innerHTML = codeHtml;
       $(this).attr('class', '').empty().html(codeTag);
       figure.attr('data-lang', lang.toUpperCase());
+      hljs.configure({tabReplace: '  '})
+      hljs.initHighlighting();
       hljs.highlightBlock(block);
     });
   })
