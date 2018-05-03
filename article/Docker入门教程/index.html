@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="陈境坤的博客">
+  <meta name="keyword" content="Go,Golang,Gopher,Docker,K8s,Kubernetes,Vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Docker入门教程 | 陈境坤的博客
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo1">( ︎ ●—● ) </div>
+      <!--<span>陈境坤的博客</span>-->
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/#Go" class="item-link">Go</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/article/杜子建-20条穷根/" class="item-link">20穷根</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">归档</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/#Go" class="menu-link">Go</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/article/杜子建-20条穷根/" class="menu-link">20穷根</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Docker入门教程</h2>
+  <p class="post-date">2018-05-03 15:45:19</p>
+    
+    
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
+  </a>
+
+    
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><h2 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h2><p>用于加载最底层的系统层,想要在什么样的系统底层之上build我们自己的image就加载什么,如果是scratch则代表什么系统层都不引入也就是我们自己创建一个base image</p>
+<blockquote>
+<p>最佳实践:<br>1.尽量使用官方的image 作为base image</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> scratch <span class="comment">#制作base image</span></span><br><span class="line"><span class="keyword">FROM</span> centos <span class="comment">#使用base image</span></span><br><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br></pre></td></tr></table></figure>
+<h2 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h2><p>注释文档<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LABEL</span> maintainer="destinyjingkun@vip.qq.com"</span><br><span class="line">LABEL version="1.0"</span><br><span class="line">LABEL description="This is docker"</span><br></pre></td></tr></table></figure></p>
+<h2 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h2><p>执行命令并创建新的Image Layer,每次运行Run之后都会生成一层新的Layer<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y vim \</span><br><span class="line">&amp;&amp; rm -rf /var/lib/apt/lists/* #注意清理cache</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最佳实践:<br>1.为了美观,复杂的RUN请使用反斜线进行换行.<br>2.避免无用分层,合并多条命令成一行.</p>
+</blockquote>
+<h2 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h2><p>设定当前工作目录,如果目录文件不存在,则会自动创建目录并设定工作目录<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WORKDIR</span> /root	#相当于cd /root,不使用RUN cd /root是因为RUN会生成一个新的Layer层</span><br><span class="line">WORKDIR /test	#如果不存在则相当于mkdir test &amp;&amp; cd test</span><br><span class="line">WORKDIR demo</span><br><span class="line">RUN pwd	#由于我们上面是在test目录下,而非在root下,所以此时的pwd应该是/test/demo</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最佳实践:<br>1.不要用RUN cd !,尽量使用绝对目录</p>
+</blockquote>
+<h2 id="ADD-amp-COPY"><a href="#ADD-amp-COPY" class="headerlink" title="ADD &amp; COPY"></a>ADD &amp; COPY</h2><p>ADD附带解压,COPY不带解压<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span> test.tar.gz / #添加到根目录并解压</span><br><span class="line">COPY test.tar.gz /#添加到根目录,不进行解压</span><br><span class="line">WORKDIR /root</span><br><span class="line">ADD hello test/ #/root/test/hello</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最佳实践:<br>1.大部分情况,COPY优于ADD<br>2.ADD除了COPY还有额外的解压功能<br>3.添加远程文件/目录请使用curl或者wget!</p>
+</blockquote>
+<h2 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h2><p>设置环境变量<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> MYSQL_VERSION <span class="number">5.6</span></span><br><span class="line"><span class="keyword">RUN</span> apt-get install -y mysql-server="$&#123;MYSQL_VERSION&#125;" \</span><br><span class="line">&amp;&amp; rm -rf /var/lib/apt/lists/*</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最佳实践:<br>1.常量的话尽量使用ENV,增加可维护性</p>
+</blockquote>
+<h2 id="CMD-amp-amp-ENTRYPOINT"><a href="#CMD-amp-amp-ENTRYPOINT" class="headerlink" title="CMD &amp;&amp; ENTRYPOINT"></a>CMD &amp;&amp; ENTRYPOINT</h2><p><img src="./1525332301852.png" alt="Alt text"><br>CMD:</p>
+<ol>
+<li>设置容器启动后默认执行的命令和参数</li>
+<li>如果docker run指定了其它命令,CMD命令被忽略</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it [image] /bin/bash</span><br><span class="line"><span class="comment">#由于指定了-it所以Dockerfile里面的CMD命令会被忽略</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>如果定义了多个CMD,只有最后一个会执行</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> echo "hello"</span><br><span class="line">RUN echo "world"</span><br><span class="line">#&gt;&gt; world</span><br></pre></td></tr></table></figure>
+<p>ENTRYPOINT:</p>
+<ol>
+<li>设置容器启动时运行的命令</li>
+<li>让容器以应用程序或者服务的形式运行</li>
+<li>不会被忽略,一定会执行</li>
+</ol>
+<blockquote>
+<p>最佳实践:<br>1.写一个shell脚本作为entrypoint<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span> docker-entrypoint.sh /usr/local/bin/</span><br><span class="line">ENTRYPOINT ["docker-entrypoint.sh"]</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>Shell &amp;&amp; Exec格式<br>Shell:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get install -y vim</span><br><span class="line">CMD echo "hello docker"</span><br><span class="line">ENTRYPOINT echo "hello docker"</span><br></pre></td></tr></table></figure></p>
+<p>Exec:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> ["apt-get", "install", "-y", "vim"]</span><br><span class="line">CMD ["/bin/echo", "hello docker"]</span><br><span class="line">ENTRYPOINT ["/bin/echo", "hello docker"] #exec模式下,就不能直接使用echo 而是使用bin/下的echo命令</span><br></pre></td></tr></table></figure></p>
+<p>区别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line">ENV name Docker</span><br><span class="line">ENTRYPOINT echo hello $name</span><br><span class="line">#hello Docker</span><br><span class="line">ENTRYPOINT [&quot;/bin/echo&quot; , &quot;hello $name&quot;]</span><br><span class="line">#hello $name</span><br><span class="line">#非shell命令下不识别$name</span><br><span class="line">ENTRYPOINT [&quot;/bin/bash&quot;, &quot;-c&quot; &quot;echo hello $name&quot;]</span><br><span class="line">#hello Docker</span><br></pre></td></tr></table></figure></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/article/推荐一个超好用的Golang数据库迁移工具gobuffalo-pop/">
+        <span class="nav-arrow">← </span>
+        
+          推荐一个超好用的Golang数据库迁移工具gobuffalo/pop
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <!--<div class="money-like">-->
+        <!--<div class="reward-btn">-->
+          <!--赏-->
+          <!--<span class="money-code">-->
+            <!--<span class="alipay-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用支付宝打赏</b>-->
+            <!--</span>-->
+            <!--<span class="wechat-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用微信打赏</b>-->
+            <!--</span>-->
+          <!--</span>-->
+        <!--</div>-->
+        <!--<p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>-->
+      <!--</div>-->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <!--<div class="qrcode">-->
+        <!--<canvas id="share-qrcode"></canvas>-->
+        <!--<p class="notice">扫描二维码，分享此文章</p>-->
+      <!--</div>-->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Dockerfile"><span class="toc-nav-text">Dockerfile</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#FROM"><span class="toc-nav-text">FROM</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#LABEL"><span class="toc-nav-text">LABEL</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RUN"><span class="toc-nav-text">RUN</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#WORKDIR"><span class="toc-nav-text">WORKDIR</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ADD-amp-COPY"><span class="toc-nav-text">ADD &amp; COPY</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ENV"><span class="toc-nav-text">ENV</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#CMD-amp-amp-ENTRYPOINT"><span class="toc-nav-text">CMD &amp;&amp; ENTRYPOINT</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://chenjingkun.com/article/Docker入门教程/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "destinyjingkun";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Docker入门教程",
+        owner: "destinyjingkun",
+        repo: "destinyjingkun.github.io",
+        oauth: {
+          client_id: "6bc1a69955e9ae2bdd12",
+          client_secret: "80597a2abf1f99509a68be4671284a1400fc3ae5"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
