@@ -11,7 +11,7 @@
   
   <title>
     
-      推荐一个超好用的Golang ORM&amp;&amp;数据库迁移包gobuffalo/pop | 陈境坤的博客
+      陈境坤的博客
     
   </title>
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -139,18 +139,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>推荐一个超好用的Golang ORM&&数据库迁移包gobuffalo/pop</h2>
-  <p class="post-date">2018-04-28 15:45:11</p>
-    
-    
-  <a href="/tags#Go" >
-    <span class="tag-code">Go</span>
-  </a>
-
-  <a href="/tags#Package" >
-    <span class="tag-code">Package</span>
-  </a>
-
+  <h2></h2>
+  <p class="post-date">2018-05-07 14:26:16</p>
     
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -159,7 +149,8 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这几天被数据库迁移折腾的半死,几乎把<code>gayhub</code>上面的一些Star数高一些的都使用了个遍.mattes/migrate虽然星星数多,但是说实在的并不怎么样,反倒是gorm的AutoMigrate最简单实用,就在准备放弃的时候,看到了一篇Povilas Versockas的一篇关于Go schema migration tools的对比文章.顺藤摸瓜,终于找到一个非常满意的Migrate Tool:<code>markbates/pop</code>,可惜作者repository已经不更新了,于是乎就找到了接盘侠:<code>gobuffalo/pop</code>,讲到这顺带推荐下作者的Web Development Tool <code>gobuffalo/buffalo</code>,非常友善的DSL,仿佛是在用go写rails,好吧,感觉有点跑偏了,下面就进入正题</p>
+    <section class="markdown-content"><h2 id="推荐一个超好用的Golang-ORM-amp-amp-数据库迁移包gobuffalo-pop"><a href="#推荐一个超好用的Golang-ORM-amp-amp-数据库迁移包gobuffalo-pop" class="headerlink" title="推荐一个超好用的Golang ORM&amp;&amp;数据库迁移包gobuffalo/pop"></a>推荐一个超好用的Golang ORM&amp;&amp;数据库迁移包gobuffalo/pop</h2><p>@(Go语言)</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这几天被数据库迁移折腾的半死,几乎把<code>gayhub</code>上面的一些Star数高一些的都使用了个遍.mattes/migrate虽然星星数多,但是说实在的并不怎么样,反倒是gorm的AutoMigrate最简单实用,就在准备放弃的时候,看到了一篇Povilas Versockas的一篇关于Go schema migration tools的对比文章.顺藤摸瓜,终于找到一个非常满意的Migrate Tool:<code>markbates/pop</code>,可惜作者repository已经不更新了,于是乎就找到了接盘侠:<code>gobuffalo/pop</code>,讲到这顺带推荐下作者的Web Development Tool <code>gobuffalo/buffalo</code>,非常友善的DSL,仿佛是在用go写rails,好吧,感觉有点跑偏了,下面就进入正题</p>
 <blockquote>
 <p>参考链接:<br><a href="https://povilasv.me/go-schema-migration-tools/" target="_blank" rel="noopener">Go schema migration tools</a><br><a href="https://github.com/markbates/pop" target="_blank" rel="noopener">markbates/pop</a><br><a href="https://github.com/gobuffalo/pop" target="_blank" rel="noopener">gobuffalo/pop</a></p>
 </blockquote>
@@ -250,39 +241,19 @@
 </section>
     <!-- Tags START -->
     
-      <div class="tags">
-        <span>Tags:</span>
-        
-  <a href="/tags#Go" >
-    <span class="tag-code">Go</span>
-  </a>
-
-  <a href="/tags#Package" >
-    <span class="tag-code">Package</span>
-  </a>
-
-      </div>
-    
     <!-- Tags END -->
     <!-- NAV START -->
     
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/article/杜子建-20条穷根/">
+      <a class="nav-left" href="/article/Docker入门教程/">
         <span class="nav-arrow">← </span>
-        
-          杜子建-20条穷根
-        
-      </a>
-    
-    
-      <a class="nav-right" href="/article/Docker入门教程/">
         
           Docker入门教程
         
-        <span class="nav-arrow"> →</span>
       </a>
+    
     
   </div>
 
@@ -328,7 +299,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#安装CLI"><span class="toc-nav-text">安装CLI</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#配置database-yml"><span class="toc-nav-text">配置database.yml</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CLI-Support"><span class="toc-nav-text">CLI Support</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#create-drop"><span class="toc-nav-text">create/drop</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#models"><span class="toc-nav-text">models</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#migrate"><span class="toc-nav-text">migrate</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ORM"><span class="toc-nav-text">ORM</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基础链式操作"><span class="toc-nav-text">基础链式操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Find-amp-amp-ALL"><span class="toc-nav-text">Find &amp;&amp; ALL</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#First-amp-amp-Last"><span class="toc-nav-text">First &amp;&amp; Last</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Where-amp-amp-Where-In"><span class="toc-nav-text">Where &amp;&amp; Where In</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order"><span class="toc-nav-text">Order</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Join-关联查询"><span class="toc-nav-text">Join 关联查询</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Count-统计"><span class="toc-nav-text">Count 统计</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Paginate-分页"><span class="toc-nav-text">Paginate 分页</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Records-事务"><span class="toc-nav-text">Records 事务</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Relationship-关联"><span class="toc-nav-text">Relationship 关联</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#One-To-One-一对一"><span class="toc-nav-text">One To One 一对一</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#One-To-Many-一对多"><span class="toc-nav-text">One To Many 一对多</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Many-To-Many-多对多"><span class="toc-nav-text">Many To Many 多对多</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order-by-amp-amp-Fk-id"><span class="toc-nav-text">Order_by &amp;&amp; Fk_id</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Eager-预加载"><span class="toc-nav-text">Eager 预加载</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Callbacks-回调-钩子"><span class="toc-nav-text">Callbacks 回调/钩子</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#推荐一个超好用的Golang-ORM-amp-amp-数据库迁移包gobuffalo-pop"><span class="toc-nav-text">推荐一个超好用的Golang ORM&amp;&amp;数据库迁移包gobuffalo/pop</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#安装CLI"><span class="toc-nav-text">安装CLI</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#配置database-yml"><span class="toc-nav-text">配置database.yml</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#CLI-Support"><span class="toc-nav-text">CLI Support</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#create-drop"><span class="toc-nav-text">create/drop</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#models"><span class="toc-nav-text">models</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#migrate"><span class="toc-nav-text">migrate</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ORM"><span class="toc-nav-text">ORM</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#基础链式操作"><span class="toc-nav-text">基础链式操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Find-amp-amp-ALL"><span class="toc-nav-text">Find &amp;&amp; ALL</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#First-amp-amp-Last"><span class="toc-nav-text">First &amp;&amp; Last</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Where-amp-amp-Where-In"><span class="toc-nav-text">Where &amp;&amp; Where In</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order"><span class="toc-nav-text">Order</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Join-关联查询"><span class="toc-nav-text">Join 关联查询</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Count-统计"><span class="toc-nav-text">Count 统计</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Paginate-分页"><span class="toc-nav-text">Paginate 分页</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Records-事务"><span class="toc-nav-text">Records 事务</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Relationship-关联"><span class="toc-nav-text">Relationship 关联</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#One-To-One-一对一"><span class="toc-nav-text">One To One 一对一</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#One-To-Many-一对多"><span class="toc-nav-text">One To Many 一对多</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Many-To-Many-多对多"><span class="toc-nav-text">Many To Many 多对多</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order-by-amp-amp-Fk-id"><span class="toc-nav-text">Order_by &amp;&amp; Fk_id</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Eager-预加载"><span class="toc-nav-text">Eager 预加载</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Callbacks-回调-钩子"><span class="toc-nav-text">Callbacks 回调/钩子</span></a></li></ol>
     
   </div>
 </aside>
@@ -338,7 +309,7 @@
 
 <script>
   (function () {
-    var url = 'https://chenjingkun.com/article/推荐一个超好用的Golang数据库迁移工具gobuffalo-pop/';
+    var url = 'https://chenjingkun.com/article/推荐一个超好用的Golang数据库迁移工具gobuffalo-pop/pop/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -394,7 +365,7 @@
     var gitmentConfig = "destinyjingkun";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "推荐一个超好用的Golang ORM&&数据库迁移包gobuffalo/pop",
+        id: "",
         owner: "destinyjingkun",
         repo: "destinyjingkun.github.io",
         oauth: {
