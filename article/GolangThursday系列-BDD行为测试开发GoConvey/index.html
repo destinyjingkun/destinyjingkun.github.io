@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="陈境坤的博客">
+  <meta name="keyword" content="Go,Golang,Gopher,Docker,K8s,Kubernetes,Vuejs">
+  <meta name="baidu-site-verification" content="xCYWSNoVd0" />
+  <meta name="google-site-verification" content="lQts9jG50D9aitZOPpa3fmSOdAfm_gYDShr-Q2Ma0Nk" />
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      GolangThursday系列-BDD行为测试开发GoConvey | 陈境坤的博客
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo1">( ︎ ●—● ) </div>
+      <!--<span>陈境坤的博客</span>-->
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/#Go" class="item-link">Go</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/article/杜子建-20条穷根/" class="item-link">20穷根</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">归档</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">首页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/#Go" class="menu-link">Go</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/article/杜子建-20条穷根/" class="menu-link">20穷根</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>GolangThursday系列-BDD行为测试开发GoConvey</h2>
+  <p class="post-date">2018-05-17 15:42:11</p>
+    
+    
+  <a href="/tags#Go" >
+    <span class="tag-code">Go</span>
+  </a>
+
+  <a href="/tags#GolangThursday" >
+    <span class="tag-code">GolangThursday</span>
+  </a>
+
+  <a href="/tags#BDD" >
+    <span class="tag-code">BDD</span>
+  </a>
+
+  <a href="/tags#Package" >
+    <span class="tag-code">Package</span>
+  </a>
+
+    
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>注:无闻大师的系列视频<br><a href="http://goconvey.co/" target="_blank" rel="noopener">Goconvey官方文档</a></p>
+</blockquote>
+<h1 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h1><p>1.测试代码优雅,简介<br>2.集成原生测试<br>3.全自动编译测试<br>4.详细展示测试结果及覆盖率<br>5.高可读的命令行输出结果<br>6.半自动化书写测试用例</p>
+<h1 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/smartystreets/goconvey</span><br></pre></td></tr></table></figure>
+<p>示例代码:<br>main.go<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"errors"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Subtract</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a - b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Multiply</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a * b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Division</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, errors.New(<span class="string">"被除数不能为 0"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a / b, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Convey-amp-amp-So"><a href="#Convey-amp-amp-So" class="headerlink" title="Convey &amp;&amp; So"></a>Convey &amp;&amp; So</h1><blockquote>
+<p>So进行断言操作</p>
+</blockquote>
+<p>main_test.go<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"testing"</span></span><br><span class="line"></span><br><span class="line">	. <span class="string">"github.com/smartystreets/goconvey/convey"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAdd</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	Convey(<span class="string">"将两数相加"</span>, t, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		So(Add(<span class="number">1</span>, <span class="number">2</span>), ShouldEqual, <span class="number">3</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSubtract</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	Convey(<span class="string">"将两数相减"</span>, t, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		So(Subtract(<span class="number">1</span>, <span class="number">2</span>), ShouldEqual, <span class="number">-1</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMultiply</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	Convey(<span class="string">"将两数相乘"</span>, t, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		So(Multiply(<span class="number">3</span>, <span class="number">2</span>), ShouldEqual, <span class="number">6</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestDivision</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	Convey(<span class="string">"将两数相除"</span>, t, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">		Convey(<span class="string">"除以非 0 数"</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">			num, err := Division(<span class="number">10</span>, <span class="number">2</span>)</span><br><span class="line">			So(err, ShouldBeNil)</span><br><span class="line">			So(num, ShouldEqual, <span class="number">5</span>)</span><br><span class="line">		&#125;)</span><br><span class="line"></span><br><span class="line">		Convey(<span class="string">"除以 0"</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">			_, err := Division(<span class="number">10</span>, <span class="number">0</span>)</span><br><span class="line">			So(err, ShouldNotBeNil)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Assertions-断言"><a href="#Assertions-断言" class="headerlink" title="Assertions 断言"></a>Assertions 断言</h1><h2 id="General-Equality"><a href="#General-Equality" class="headerlink" title="General Equality"></a>General Equality</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">So(thing1, ShouldEqual, thing2)</span><br><span class="line">So(thing1, ShouldNotEqual, thing2)</span><br><span class="line">So(thing1, ShouldResemble, thing2)		<span class="comment">// a deep equals for arrays, slices, maps, and structs</span></span><br><span class="line">So(thing1, ShouldNotResemble, thing2)</span><br><span class="line">So(thing1, ShouldPointTo, thing2)</span><br><span class="line">So(thing1, ShouldNotPointTo, thing2)</span><br><span class="line">So(thing1, ShouldBeNil)</span><br><span class="line">So(thing1, ShouldNotBeNil)</span><br><span class="line">So(thing1, ShouldBeTrue)</span><br><span class="line">So(thing1, ShouldBeFalse)</span><br><span class="line">So(thing1, ShouldBeZeroValue)</span><br></pre></td></tr></table></figure>
+<h2 id="Numeric-数字判断"><a href="#Numeric-数字判断" class="headerlink" title="Numeric 数字判断"></a>Numeric 数字判断</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">So(<span class="number">1</span>, ShouldBeGreaterThan, <span class="number">0</span>)</span><br><span class="line">So(<span class="number">1</span>, ShouldBeGreaterThanOrEqualTo, <span class="number">0</span>)</span><br><span class="line">So(<span class="number">1</span>, ShouldBeLessThan, <span class="number">2</span>)</span><br><span class="line">So(<span class="number">1</span>, ShouldBeLessThanOrEqualTo, <span class="number">2</span>)</span><br><span class="line">So(<span class="number">1.1</span>, ShouldBeBetween, <span class="number">.8</span>, <span class="number">1.2</span>)</span><br><span class="line">So(<span class="number">1.1</span>, ShouldNotBeBetween, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">So(<span class="number">1.1</span>, ShouldBeBetweenOrEqual, <span class="number">.9</span>, <span class="number">1.1</span>)</span><br><span class="line">So(<span class="number">1.1</span>, ShouldNotBeBetweenOrEqual, <span class="number">1000</span>, <span class="number">2000</span>)</span><br><span class="line">So(<span class="number">1.0</span>, ShouldAlmostEqual, <span class="number">0.99999999</span>, <span class="number">.0001</span>)   <span class="comment">// tolerance is optional; default 0.0000000001</span></span><br><span class="line">So(<span class="number">1.0</span>, ShouldNotAlmostEqual, <span class="number">0.9</span>, <span class="number">.0001</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Collections-集合判断"><a href="#Collections-集合判断" class="headerlink" title="Collections 集合判断"></a>Collections 集合判断</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">So([]<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>&#125;, ShouldContain, <span class="number">4</span>)</span><br><span class="line">So([]<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>&#125;, ShouldNotContain, <span class="number">5</span>)</span><br><span class="line">So(<span class="number">4</span>, ShouldBeIn, ...[]<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>&#125;)</span><br><span class="line">So(<span class="number">4</span>, ShouldNotBeIn, ...[]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>&#125;)</span><br><span class="line">So([]<span class="keyword">int</span>&#123;&#125;, ShouldBeEmpty)</span><br><span class="line">So([]<span class="keyword">int</span>&#123;<span class="number">1</span>&#125;, ShouldNotBeEmpty)</span><br><span class="line">So(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"a"</span>: <span class="string">"b"</span>&#125;, ShouldContainKey, <span class="string">"a"</span>)</span><br><span class="line">So(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"a"</span>: <span class="string">"b"</span>&#125;, ShouldNotContainKey, <span class="string">"b"</span>)</span><br><span class="line">So(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"a"</span>: <span class="string">"b"</span>&#125;, ShouldNotBeEmpty)</span><br><span class="line">So(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;&#125;, ShouldBeEmpty)</span><br><span class="line">So(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"a"</span>: <span class="string">"b"</span>&#125;, ShouldHaveLength, <span class="number">1</span>) <span class="comment">// supports map, slice, chan, and string</span></span><br></pre></td></tr></table></figure>
+<h2 id="Strings-字符串判断"><a href="#Strings-字符串判断" class="headerlink" title="Strings 字符串判断"></a>Strings 字符串判断</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">So(<span class="string">"asdf"</span>, ShouldStartWith, <span class="string">"as"</span>)</span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldNotStartWith, <span class="string">"df"</span>)</span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldEndWith, <span class="string">"df"</span>)</span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldNotEndWith, <span class="string">"df"</span>)</span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldContainSubstring, <span class="string">"sd"</span>)		<span class="comment">// optional 'expected occurences' arguments?</span></span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldNotContainSubstring, <span class="string">"er"</span>)</span><br><span class="line">So(<span class="string">"adsf"</span>, ShouldBeBlank)</span><br><span class="line">So(<span class="string">"asdf"</span>, ShouldNotBeBlank)</span><br></pre></td></tr></table></figure>
+<h2 id="panic-判断"><a href="#panic-判断" class="headerlink" title="panic 判断"></a>panic 判断</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">So(<span class="function"><span class="keyword">func</span><span class="params">()</span>, <span class="title">ShouldPanic</span>)</span></span><br><span class="line"><span class="function"><span class="title">So</span><span class="params">(<span class="keyword">func</span>()</span>, <span class="title">ShouldNotPanic</span>)</span></span><br><span class="line">So(func(), ShouldPanicWith, "")		// or errors.New("something")</span><br><span class="line">So(func(), ShouldNotPanicWith, "")	// or errors.New("something")</span><br></pre></td></tr></table></figure>
+<h2 id="Type-checking-类型判断"><a href="#Type-checking-类型判断" class="headerlink" title="Type checking 类型判断"></a>Type checking 类型判断</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">So(<span class="number">1</span>, ShouldHaveSameTypeAs, <span class="number">0</span>)</span><br><span class="line">So(<span class="number">1</span>, ShouldNotHaveSameTypeAs, <span class="string">"asdf"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="time-Time-and-time-Duration"><a href="#time-Time-and-time-Duration" class="headerlink" title="time.Time (and time.Duration)"></a>time.Time (and time.Duration)</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">So(time.Now(), ShouldHappenBefore, time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenOnOrBefore, time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenAfter, time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenOnOrAfter, time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenBetween, time.Now(), time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenOnOrBetween, time.Now(), time.Now())</span><br><span class="line">So(time.Now(), ShouldNotHappenOnOrBetween, time.Now(), time.Now())</span><br><span class="line">So(time.Now(), ShouldHappenWithin, duration, time.Now())</span><br><span class="line">So(time.Now(), ShouldNotHappenWithin, duration, time.Now())</span><br></pre></td></tr></table></figure>
+<h1 id="实际测试"><a href="#实际测试" class="headerlink" title="实际测试"></a>实际测试</h1><h2 id="go-test"><a href="#go-test" class="headerlink" title="go test"></a>go test</h2><p>使用原生的go test 进行测试<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test</span><br></pre></td></tr></table></figure></p>
+<p><img src="./1525832002281.png" alt="Alt text"><br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go test -v	<span class="comment">#查看详细的test内容</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="./1525831849860.png" alt="Alt text"></p>
+<h2 id="goconvey"><a href="#goconvey" class="headerlink" title="goconvey"></a>goconvey</h2><p>goconvey依赖于官方tool的cover,如果没有的话请自行安装<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u golang.org/x/tools/cmd/cover</span><br></pre></td></tr></table></figure></p>
+<p>执行:<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goconvey</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以使用本地:8080端口查看测试结果<br><img src="./1525832137681.png" alt="Alt text"></p>
+<h1 id="Goconvey-测试gin-路由"><a href="#Goconvey-测试gin-路由" class="headerlink" title="Goconvey 测试gin 路由"></a>Goconvey 测试gin 路由</h1><p>举个例子:<br>main.go<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	r := gin.New()</span><br><span class="line">	r.GET(<span class="string">"/"</span>, homePage)</span><br><span class="line">	r.Run()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">homePage</span><span class="params">(c *gin.Context)</span></span>&#123;</span><br><span class="line">	c.JSON(<span class="number">200</span>,gin.H&#123;<span class="string">"message"</span>:<span class="string">"homepage"</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>main_test.go<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHomePage</span><span class="params">(t *testing.T)</span></span>&#123;</span><br><span class="line">	w := httptest.NewRecorder()</span><br><span class="line">	req := httptest.NewRequest(<span class="string">"GET"</span>, <span class="string">"/"</span>, <span class="literal">nil</span>)</span><br><span class="line">	test_mux := gin.New()</span><br><span class="line">	test_mux.ServeHTTP(w, req)</span><br><span class="line">	So(w.Code, ShouldEqual, http.StatusOK)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Go" >
+    <span class="tag-code">Go</span>
+  </a>
+
+  <a href="/tags#GolangThursday" >
+    <span class="tag-code">GolangThursday</span>
+  </a>
+
+  <a href="/tags#BDD" >
+    <span class="tag-code">BDD</span>
+  </a>
+
+  <a href="/tags#Package" >
+    <span class="tag-code">Package</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/article/Docker入门教程/">
+        <span class="nav-arrow">← </span>
+        
+          Docker入门教程
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <!--<div class="money-like">-->
+        <!--<div class="reward-btn">-->
+          <!--赏-->
+          <!--<span class="money-code">-->
+            <!--<span class="alipay-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用支付宝打赏</b>-->
+            <!--</span>-->
+            <!--<span class="wechat-code">-->
+              <!--<div class="code-image"></div>-->
+              <!--<b>使用微信打赏</b>-->
+            <!--</span>-->
+          <!--</span>-->
+        <!--</div>-->
+        <!--<p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>-->
+      <!--</div>-->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <!--<div class="qrcode">-->
+        <!--<canvas id="share-qrcode"></canvas>-->
+        <!--<p class="notice">扫描二维码，分享此文章</p>-->
+      <!--</div>-->
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#主要特性"><span class="toc-nav-text">主要特性</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Install"><span class="toc-nav-text">Install</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Convey-amp-amp-So"><span class="toc-nav-text">Convey &amp;&amp; So</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Assertions-断言"><span class="toc-nav-text">Assertions 断言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#General-Equality"><span class="toc-nav-text">General Equality</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Numeric-数字判断"><span class="toc-nav-text">Numeric 数字判断</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Collections-集合判断"><span class="toc-nav-text">Collections 集合判断</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Strings-字符串判断"><span class="toc-nav-text">Strings 字符串判断</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#panic-判断"><span class="toc-nav-text">panic 判断</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Type-checking-类型判断"><span class="toc-nav-text">Type checking 类型判断</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#time-Time-and-time-Duration"><span class="toc-nav-text">time.Time (and time.Duration)</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#实际测试"><span class="toc-nav-text">实际测试</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#go-test"><span class="toc-nav-text">go test</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#goconvey"><span class="toc-nav-text">goconvey</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Goconvey-测试gin-路由"><span class="toc-nav-text">Goconvey 测试gin 路由</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://chenjingkun.com/article/GolangThursday系列-BDD行为测试开发GoConvey/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "destinyjingkun";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "GolangThursday系列-BDD行为测试开发GoConvey",
+        owner: "destinyjingkun",
+        repo: "destinyjingkun.github.io",
+        oauth: {
+          client_id: "6bc1a69955e9ae2bdd12",
+          client_secret: "80597a2abf1f99509a68be4671284a1400fc3ae5"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      // hljs.configure({tabReplace: '  '})
+      // hljs.initHighlighting();
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
